@@ -1,0 +1,196 @@
+Random seed: 42
+Results will be written to: results/
+
+======================================================================
+DATASET: CICIDS2017
+======================================================================
+  train=1494  test=374  n_classes=15  n_features=66
+  [hybrid] training CNN-BiLSTM embedder on cpu ...
+    epoch 1/30  loss=2.7049
+    epoch 2/30  loss=2.6592
+    epoch 3/30  loss=2.5104
+    epoch 4/30  loss=2.3592
+    epoch 5/30  loss=2.2274
+    epoch 6/30  loss=2.0864
+    epoch 7/30  loss=1.9410
+    epoch 8/30  loss=1.8440
+    epoch 9/30  loss=1.7583
+    epoch 10/30  loss=1.6770
+    epoch 11/30  loss=1.6057
+    epoch 12/30  loss=1.5074
+    epoch 13/30  loss=1.4201
+    epoch 14/30  loss=1.3558
+    epoch 15/30  loss=1.2536
+    epoch 16/30  loss=1.2164
+    epoch 17/30  loss=1.1796
+    epoch 18/30  loss=1.1156
+    epoch 19/30  loss=1.0619
+    epoch 20/30  loss=1.0290
+    epoch 21/30  loss=0.9905
+    epoch 22/30  loss=0.9319
+    epoch 23/30  loss=0.9375
+    epoch 24/30  loss=0.9043
+    epoch 25/30  loss=0.8609
+    epoch 26/30  loss=0.8476
+    epoch 27/30  loss=0.8334
+    epoch 28/30  loss=0.8235
+    epoch 29/30  loss=0.7840
+    epoch 30/30  loss=0.7791
+  [hybrid] extracting embeddings ...
+  [hybrid] fitting LightGBM on embeddings ...
+  [baseline] fitting LightGBM directly on standardized raw features ...
+
+  Table 3 (aggregate comparison):
+                               model  accuracy_%  macro_precision_%  macro_recall_%  macro_f1_%
+     CNN-BiLSTM embedding + LightGBM   86.631016          84.559431       82.111111    82.69849
+Raw standardized features + LightGBM   91.443850          93.185793       91.444444    91.96957
+
+  Table 4 (bootstrap 95% CI, hybrid):
+ model          metric  point_estimate_%  ci_low_%  ci_high_%
+hybrid        accuracy         86.631016 83.155080  89.839572
+hybrid macro_precision         84.559431 79.719793  89.148594
+hybrid    macro_recall         82.111111 77.298425  87.043539
+hybrid        macro_f1         82.698490 77.290662  86.631293
+
+  Table 4b (bootstrap 95% CI, baseline -- not in original manuscript):
+   model          metric  point_estimate_%  ci_low_%  ci_high_%
+baseline        accuracy         91.443850 88.502674  94.117647
+baseline macro_precision         93.185793 87.038814  95.172257
+baseline    macro_recall         91.444444 86.631464  94.491956
+baseline        macro_f1         91.969570 86.512331  94.386589
+
+  Per-class metrics (hybrid):
+                            precision    recall  f1-score    support
+BENIGN                       0.750000  0.800000  0.774194   30.00000
+Bot                          1.000000  0.933333  0.965517   30.00000
+DDoS                         0.965517  0.933333  0.949153   30.00000
+DoS GoldenEye                0.935484  0.966667  0.950820   30.00000
+DoS Hulk                     0.870968  0.900000  0.885246   30.00000
+DoS Slowhttptest             0.965517  0.933333  0.949153   30.00000
+DoS slowloris                0.937500  1.000000  0.967742   30.00000
+FTP-Patator                  1.000000  0.966667  0.983051   30.00000
+Heartbleed                   1.000000  1.000000  1.000000    2.00000
+Infiltration                 1.000000  0.500000  0.666667    8.00000
+PortScan                     0.937500  1.000000  0.967742   30.00000
+SSH-Patator                  0.857143  1.000000  0.923077   30.00000
+Web Attack - Brute Force     0.607143  0.566667  0.586207   30.00000
+Web Attack - Sql Injection   0.250000  0.250000  0.250000    4.00000
+Web Attack - XSS             0.607143  0.566667  0.586207   30.00000
+accuracy                     0.866310  0.866310  0.866310    0.86631
+macro avg                    0.845594  0.821111  0.826985  374.00000
+weighted avg                 0.866357  0.866310  0.863574  374.00000
+
+  Confusion matrix (hybrid):
+                            BENIGN  Bot  DDoS  DoS GoldenEye  DoS Hulk  DoS Slowhttptest  DoS slowloris  FTP-Patator  Heartbleed  Infiltration  PortScan  SSH-Patator  Web Attack - Brute Force  Web Attack - Sql Injection  Web Attack - XSS
+BENIGN                          24    0     1              1         2                 0              0            0           0             0         1            0                         0                           1                 0
+Bot                              2   28     0              0         0                 0              0            0           0             0         0            0                         0                           0                 0
+DDoS                             1    0    28              0         0                 0              0            0           0             0         1            0                         0                           0                 0
+DoS GoldenEye                    0    0     0             29         0                 0              0            0           0             0         0            0                         0                           1                 0
+DoS Hulk                         1    0     0              1        27                 0              1            0           0             0         0            0                         0                           0                 0
+DoS Slowhttptest                 1    0     0              0         0                28              1            0           0             0         0            0                         0                           0                 0
+DoS slowloris                    0    0     0              0         0                 0             30            0           0             0         0            0                         0                           0                 0
+FTP-Patator                      0    0     0              0         1                 0              0           29           0             0         0            0                         0                           0                 0
+Heartbleed                       0    0     0              0         0                 0              0            0           2             0         0            0                         0                           0                 0
+Infiltration                     2    0     0              0         1                 1              0            0           0             4         0            0                         0                           0                 0
+PortScan                         0    0     0              0         0                 0              0            0           0             0        30            0                         0                           0                 0
+SSH-Patator                      0    0     0              0         0                 0              0            0           0             0         0           30                         0                           0                 0
+Web Attack - Brute Force         0    0     0              0         0                 0              0            0           0             0         0            2                        17                           0                11
+Web Attack - Sql Injection       0    0     0              0         0                 0              0            0           0             0         0            3                         0                           1                 0
+Web Attack - XSS                 1    0     0              0         0                 0              0            0           0             0         0            0                        11                           1                17
+
+  Table 9 (representation ablation):
+   dataset  baseline_accuracy_%  hybrid_accuracy_%  delta_accuracy_pp  baseline_macro_f1_%  hybrid_macro_f1_%  delta_macro_f1_pp
+CICIDS2017             91.44385          86.631016          -4.812834             91.96957           82.69849           -9.27108
+
+  Paired bootstrap significance test (hybrid - baseline):
+  metric  point_diff_hybrid_minus_baseline_%  ci_low_%  ci_high_%  significant_at_95%
+accuracy                           -4.840909  -8.02139  -1.871658                True
+macro_f1                           -9.567275 -14.64420  -4.619964                True
+
+======================================================================
+DATASET: CICDarknet2020
+======================================================================
+  train=1600  test=400  n_classes=4  n_features=64
+  [hybrid] training CNN-BiLSTM embedder on cpu ...
+    epoch 1/30  loss=1.3688
+    epoch 2/30  loss=1.2478
+    epoch 3/30  loss=1.1111
+    epoch 4/30  loss=1.0564
+    epoch 5/30  loss=1.0219
+    epoch 6/30  loss=1.0079
+    epoch 7/30  loss=0.9562
+    epoch 8/30  loss=0.9157
+    epoch 9/30  loss=0.8732
+    epoch 10/30  loss=0.8527
+    epoch 11/30  loss=0.8322
+    epoch 12/30  loss=0.8074
+    epoch 13/30  loss=0.8616
+    epoch 14/30  loss=0.7945
+    epoch 15/30  loss=0.7832
+    epoch 16/30  loss=0.7611
+    epoch 17/30  loss=0.7463
+    epoch 18/30  loss=0.7335
+    epoch 19/30  loss=0.7164
+    epoch 20/30  loss=0.7067
+    epoch 21/30  loss=0.6848
+    epoch 22/30  loss=0.6821
+    epoch 23/30  loss=0.6616
+    epoch 24/30  loss=0.6626
+    epoch 25/30  loss=0.6438
+    epoch 26/30  loss=0.6266
+    epoch 27/30  loss=0.6153
+    epoch 28/30  loss=0.6095
+    epoch 29/30  loss=0.5777
+    epoch 30/30  loss=0.5563
+  [hybrid] extracting embeddings ...
+  [hybrid] fitting LightGBM on embeddings ...
+  [baseline] fitting LightGBM directly on standardized raw features ...
+
+  Table 3 (aggregate comparison):
+                               model  accuracy_%  macro_precision_%  macro_recall_%  macro_f1_%
+     CNN-BiLSTM embedding + LightGBM       79.75          80.099963           79.75   79.830251
+Raw standardized features + LightGBM       94.25          94.349747           94.25   94.287577
+
+  Table 4 (bootstrap 95% CI, hybrid):
+ model          metric  point_estimate_%  ci_low_%  ci_high_%
+hybrid        accuracy         79.750000 75.750000  83.500000
+hybrid macro_precision         80.099963 76.309877  83.760732
+hybrid    macro_recall         79.750000 75.925174  83.451532
+hybrid        macro_f1         79.830251 75.969309  83.437830
+
+  Table 4b (bootstrap 95% CI, baseline -- not in original manuscript):
+   model          metric  point_estimate_%  ci_low_%  ci_high_%
+baseline        accuracy         94.250000 91.750000  96.500000
+baseline macro_precision         94.349747 92.061388  96.462645
+baseline    macro_recall         94.250000 91.880460  96.434238
+baseline        macro_f1         94.287577 91.928771  96.421300
+
+  Per-class metrics (hybrid):
+              precision  recall  f1-score   support
+Non-Tor        0.912621  0.9400  0.926108  100.0000
+NonVPN         0.694737  0.6600  0.676923  100.0000
+Tor            0.923913  0.8500  0.885417  100.0000
+VPN            0.672727  0.7400  0.704762  100.0000
+accuracy       0.797500  0.7975  0.797500    0.7975
+macro avg      0.801000  0.7975  0.798303  400.0000
+weighted avg   0.801000  0.7975  0.798303  400.0000
+
+  Confusion matrix (hybrid):
+         Non-Tor  NonVPN  Tor  VPN
+Non-Tor       94       4    0    2
+NonVPN         4      66    4   26
+Tor            0       7   85    8
+VPN            5      18    3   74
+
+  Table 9 (representation ablation):
+       dataset  baseline_accuracy_%  hybrid_accuracy_%  delta_accuracy_pp  baseline_macro_f1_%  hybrid_macro_f1_%  delta_macro_f1_pp
+CICDarknet2020                94.25              79.75              -14.5            94.287577          79.830251         -14.457327
+
+  Paired bootstrap significance test (hybrid - baseline):
+  metric  point_diff_hybrid_minus_baseline_%   ci_low_%  ci_high_%  significant_at_95%
+accuracy                          -14.477050 -18.250000 -10.750000                True
+macro_f1                          -14.486402 -18.269001 -10.819912                True
+
+======================================================================
+Done. All tables written to the results/ folder.
+======================================================================
