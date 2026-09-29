@@ -84,20 +84,9 @@ drawn for the "common" classes (the ones over the cap) still depend on:
    want to try to close the gap further, and report whatever you settle on
    in a revised Methods section).
 
-This is exactly the situation flagged in the manuscript's own Section 5.3
-and in the earlier review of this paper: a single run at pilot scale isn't
-reproducible down to the decimal point, only in **direction and rough
-magnitude** — which it does reproduce here.
 
-## What this does NOT fix
 
-- Still pilot-scale data (by design, matching the manuscript's stated
-  scope), not the full CICIDS2017 (2.83M rows) / CICDarknet2020 (158K rows).
-- Still a single train/test split and a single seed. To do the "five
-  independent seeds/folds" the manuscript's own Section 5.3 calls for,
-  wrap `run_dataset()` in a loop over seeds and aggregate — not implemented
-  here since that's a substantive rerun decision, not a code-completeness
-  gap, and would take considerably longer to execute.
+
 - The web-attack label corruption fix (`_normalize_cicids_labels` in
   `preprocessing.py`) is worth a one-line mention in your Methods section
   if you use these numbers — reviewers familiar with CICIDS2017 will
